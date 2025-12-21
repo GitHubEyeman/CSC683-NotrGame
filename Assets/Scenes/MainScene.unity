@@ -384,7 +384,10 @@ MonoBehaviour:
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &561788477
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,8 +921,11 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1518263343
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &862037567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,9 +2068,12 @@ MeshFilter:
   m_GameObject: {fileID: 1729717072}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1731005013
 GameObject:
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1818831555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,4 +2404,7 @@ SceneRoots:
   - {fileID: 1302128678}
   - {fileID: 1818831559}
   - {fileID: 1242991192}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
