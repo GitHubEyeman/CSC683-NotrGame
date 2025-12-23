@@ -108,7 +108,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBulletBehaviourScript
   lifeTime: 5
   damage: 10
-  HpCanvasObj: {fileID: 846405472230499889, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
 --- !u!54 &-6388515502400717280
 Rigidbody:
   m_ObjectHideFlags: 0
