@@ -24,11 +24,6 @@ public class HealthBar : MonoBehaviour
             healthSlider.value = Health;
         }
 
-        // Use the new Input System API
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            TakeDamage(10);
-        }
 
         if (EaseHealthSlider != null && healthSlider != null && healthSlider.value != EaseHealthSlider.value)
         {
