@@ -7,8 +7,8 @@ public class MoveBackZ : MonoBehaviour
     public float repositionDistance = 50f;
     public float spawnDistance = 160f;
     public bool destroyOnOutOfBounds = false;
+    public GameObject respawnOnDestroy;
 
-    
     void Update()
     {
         transform.Translate(Vector3.back * speed * Time.deltaTime);
@@ -19,6 +19,12 @@ public class MoveBackZ : MonoBehaviour
         }
         else if (transform.position.z < -repositionDistance && destroyOnOutOfBounds) 
         { 
+            
+            if (respawnOnDestroy != null)
+            {
+                Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z + spawnDistance);
+                Instantiate(respawnOnDestroy, pos, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
 
