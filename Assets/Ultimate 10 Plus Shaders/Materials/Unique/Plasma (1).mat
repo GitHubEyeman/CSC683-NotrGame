@@ -38,6 +38,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Cull: 2
+    - _FadeEnd: 363.18
+    - _FadeStart: 100
     m_Colors:
     - _BoxDims: {r: 5, g: 5, b: 5, a: 1}
     - _Color: {r: 118.035385, g: 1.2359726, b: 0, a: 1}

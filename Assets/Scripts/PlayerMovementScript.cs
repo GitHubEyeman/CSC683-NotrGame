@@ -86,7 +86,7 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
     }
-
+    
     void FixedUpdate()
     {
         // Apply custom gravity
