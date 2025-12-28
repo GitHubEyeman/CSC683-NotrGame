@@ -36,90 +36,95 @@ This shader has NOT been tested on any other PC configuration except the followi
 ____________________________________________________________________________________________________________________________________________
 */
 
-Shader "Ultimate 10+ Shaders/Simple Sine Wave"
+Shader "Ultimate 10+ Shaders/Simple Sine Wave_URP"
 {
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Normal ("Normal Map", 2D) = "bump" {}
-        _Speed ("Speed", float) = 1.25
-        _Amplitude ("Amplitude", float) = 1.0
+        _MainTex ("Base Map", 2D) = "white" {}
 
-        _Smoothness ("Smoothness", Range(0, 1)) = 0.5
-        _Metallic ("Metallic", Range(0, 1)) = 0.5
+        _Speed ("Speed", Float) = 1.25
+        _Amplitude ("Amplitude", Float) = 1.0
 
-        [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 2
+        _Smoothness ("Smoothness", Range(0,1)) = 0.5
+        _Metallic ("Metallic", Range(0,1)) = 0.5
     }
+
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 150
-        Cull [_Cull]
-        ZWrite On
-
-        CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard addshadow fullforwardshadows
-        #pragma vertex vert
-
-        #ifndef SHADER_API_D3D11
-            #pragma target 3.0
-        #else
-            #pragma target 4.0
-        #endif
-
-        fixed4 _Color;
-
-        sampler2D _MainTex;
-        sampler2D _Normal;
-
-        half _Smoothness;
-        half _Metallic;
-
-        half _Speed;
-        half _Amplitude;
-
-        struct Input
+        Tags
         {
-            float2 uv_MainTex;
-            float2 uv_Normal;
-        };
+            "RenderPipeline"="UniversalRenderPipeline"
+            "RenderType"="Opaque"
+        }
 
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
-
-        fixed4 pixel;
-        void surf (Input IN, inout SurfaceOutputStandard o)
+        Pass
         {
-            pixel = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = pixel.rgb;
-            
-            o.Smoothness = _Smoothness;
-            o.Metallic = _Metallic;
+            Name "ForwardLit"
+            Tags { "LightMode"="UniversalForward" }
 
-            o.Normal = tex2D(_Normal, IN.uv_Normal);
-        }
- 
-        struct appdata {
-            float4 vertex : POSITION;
-            float4 tangent : TANGENT;
-            float3 normal : NORMAL;
-            float4 texcoord : TEXCOORD0;
-            float4 texcoord1 : TEXCOORD1;
-            fixed4 color : COLOR;
-            UNITY_VERTEX_INPUT_INSTANCE_ID
-        };
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
-        void vert(inout appdata v){
-            v.vertex.y = sin((_Time.y + v.vertex.x) * _Speed) * _Amplitude;
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float3 normalOS   : NORMAL;
+                float2 uv         : TEXCOORD0;
+            };
+
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float3 normalWS    : TEXCOORD0;
+                float2 uv          : TEXCOORD1;
+            };
+
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float4 _Color;
+
+            float _Speed;
+            float _Amplitude;
+            float _Smoothness;
+            float _Metallic;
+
+            Varyings vert (Attributes v)
+            {
+                Varyings o;
+
+                float3 pos = v.positionOS.xyz;
+                pos.y += sin((_Time.y + pos.x) * _Speed) * _Amplitude;
+
+                o.positionHCS = TransformObjectToHClip(pos);
+                o.normalWS = TransformObjectToWorldNormal(v.normalOS);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
+                return o;
+            }
+
+            half4 frag (Varyings i) : SV_Target
+            {
+                half3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
+
+                InputData inputData = (InputData)0;
+                inputData.normalWS = normalize(i.normalWS);
+                inputData.viewDirectionWS = normalize(GetWorldSpaceViewDir(i.positionHCS.xyz));
+
+                SurfaceData surfaceData = (SurfaceData)0;
+                surfaceData.albedo = albedo;
+                surfaceData.metallic = _Metallic;
+                surfaceData.smoothness = _Smoothness;
+                surfaceData.alpha = 1;
+
+                return UniversalFragmentPBR(inputData, surfaceData);
+            }
+            ENDHLSL
         }
-        
-        ENDCG
     }
-    FallBack "Diffuse"
 }
+

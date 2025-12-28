@@ -30,16 +30,16 @@ public class ShooterScript : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && !hit.collider.CompareTag("Player"))
             {
                 GameObject spawnedObject = Instantiate(bullet, transform.position, Quaternion.identity);
                 Vector3 direction = (hit.point - transform.position).normalized;
                 StartCoroutine(MoveObject(spawnedObject, direction));
             } else
             {
-                GameObject spawnedObject = Instantiate(bullet, transform.position, Quaternion.identity);
-                Vector3 direction = Camera.main.transform.forward.normalized;
-                StartCoroutine(MoveObject(spawnedObject, direction));
+                //GameObject spawnedObject = Instantiate(bullet, transform.position, Quaternion.identity);
+                //Vector3 direction = Camera.main.transform.forward.normalized;
+                //StartCoroutine(MoveObject(spawnedObject, direction));
             }
             
         }
@@ -50,7 +50,8 @@ public class ShooterScript : MonoBehaviour
         float traveledDistance = 0f;
 
         // Track the object movement
-        while (traveledDistance < maxDistance)
+
+        while (traveledDistance < maxDistance && obj != null)
         {
             float step = speed * Time.deltaTime; // Calculate the movement step per frame
             obj.transform.Translate(direction * step, Space.World);
@@ -60,7 +61,10 @@ public class ShooterScript : MonoBehaviour
         }
 
         // Destroy the object after it has traveled the specified distance
-        Destroy(obj);
+        if (obj != null)
+        {
+            Destroy(obj);
+        }
     }
 
 

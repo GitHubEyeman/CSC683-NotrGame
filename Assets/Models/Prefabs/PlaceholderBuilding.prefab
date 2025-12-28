@@ -129,3 +129,4 @@ MonoBehaviour:
   repositionDistance: 0
   spawnDistance: 200
   destroyOnOutOfBounds: 1
+  respawnOnDestroy: {fileID: 0}
