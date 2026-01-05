@@ -5,6 +5,8 @@ public class EnemyBulletBehaviourScript : MonoBehaviour
     public float lifeTime = 5f;
     public int damage = 10;
 
+    public ParticleSystem particlePrefab;
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
@@ -46,8 +48,19 @@ public class EnemyBulletBehaviourScript : MonoBehaviour
                     Debug.Log("Damage applied (no blinking - PlayerCollisionDetect not found)");
                 }
             }
-            
+            GameObject particle = SpawnParticle(particlePrefab, other.ClosestPoint(transform.position));
+            Destroy(particle, 2f);
             Destroy(gameObject);
         }
+    }
+
+    public GameObject SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    {
+        // Instantiate the particle system at the given position
+        ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
+
+        // Play the particle system
+        newParticle.Play();
+        return newParticle.gameObject;
     }
 }

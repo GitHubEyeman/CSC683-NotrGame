@@ -16,10 +16,19 @@ public class EnemySMovementScript : MonoBehaviour
     {
         // Store the object's initial position when the game starts
         initialPosition = transform.position;
+
+        target = GameObject.Find("PlayerPositionTracker")?.transform;  // Finds the player by name
+
+        if (target == null)
+        {
+            Debug.LogError("Player object not found in the scene!");
+            return;
+        }
     }
 
     void Update()
     {
+        Debug.Log("NSJAIODJk : " + target.position);
         // Calculate the 8-shape path using sine and cosine functions
         time += Time.deltaTime * speed; // Increment time
         float x = radiusX * Mathf.Sin(time * frequencyX); // X movement (sin for 8-shape)

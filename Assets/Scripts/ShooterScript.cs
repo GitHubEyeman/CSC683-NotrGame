@@ -64,17 +64,21 @@ public class ShooterScript : MonoBehaviour
         // Destroy the object after it has traveled the specified distance
         if (obj != null)
         {
-            SpawnParticle(particlePrefab, obj.transform.position);
+
+            GameObject particle = SpawnParticle(particlePrefab, obj.transform.position);
+
+            Destroy(particle, 2f);
             Destroy(obj);
         }
     }
 
-    public void SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    public GameObject SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
     {
         // Instantiate the particle system at the given position
         ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
 
         // Play the particle system
         newParticle.Play();
+        return newParticle.gameObject;
     }
 }

@@ -7,7 +7,7 @@ public class PlayerCollisionDetect : MonoBehaviour
     public int obstacleDamage = 10;
     public float invincibilityTime = 1f;
 
-    public ParticleSystem particlePrefab;
+    public ParticleSystem[] particlePrefab;
     public Renderer playerRenderer;
     public Material originalMaterial;
     public Material damageMaterial;
@@ -28,13 +28,15 @@ public class PlayerCollisionDetect : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        int randNo = Random.Range(0, particlePrefab.Length);
+
         Debug.Log("Trigger entered with: " + other.gameObject.name + " | Tag: " + other.tag);
         
         if (other.CompareTag("Obstacle"))
         {
             Debug.Log("HIT OBSTACLE! Applying damage: " + obstacleDamage);
             TakeDamage(obstacleDamage);
-            SpawnParticle(particlePrefab, other.transform.position);
+            SpawnParticle(particlePrefab[randNo], other.transform.position);
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("EnemyBullet"))
