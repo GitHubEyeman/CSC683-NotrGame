@@ -211,7 +211,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
   obstaclePrefabs:
-  - {fileID: 7607968438002033014, guid: 2484507fea4cbca49b56f467c4a1f337, type: 3}
+  - {fileID: 5385594800564430123, guid: 661bc1b48cae8064c8b3bd636fc95c9f, type: 3}
+  - {fileID: 4098165565801213800, guid: 0fd057b9f57372841b501628d2e68967, type: 3}
+  - {fileID: 8192688952462807782, guid: 8b76545cc5ea81949bd38d68a8d3678d, type: 3}
   spawnInterval: 2
   spawnRangeX: 6
   spawnZ: 200
@@ -2179,6 +2181,7 @@ MonoBehaviour:
   playerHPLink: {fileID: 837758643}
   obstacleDamage: 10
   invincibilityTime: 1
+  particlePrefab: {fileID: 3593127046002534563, guid: fc52d77f868cebf4087f2f9d43489858, type: 3}
   playerRenderer: {fileID: 1729717075}
   originalMaterial: {fileID: 0}
   damageMaterial: {fileID: 2100000, guid: 4b1a94d32b9f0b44291fcb2ea3d5ce66, type: 2}
@@ -10380,6 +10383,10 @@ PrefabInstance:
       propertyPath: maxDistance
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3507951929897445772, guid: 6a912171828dd75448c509d0109457d9, type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 45329577808884313, guid: da9a4bbd4f8e23f498dad167c2b32a4a, type: 3}
     - target: {fileID: 8837464567605536350, guid: 6a912171828dd75448c509d0109457d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.085

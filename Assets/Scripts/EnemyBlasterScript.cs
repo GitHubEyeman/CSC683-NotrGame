@@ -66,7 +66,7 @@ public class EnemyBlasterScript : MonoBehaviour
         Instantiate(particlePrefab, other.transform.position, Quaternion.identity);
 
         // Wait 1 second
-        yield return new WaitForSeconds(chargeTime - 0.5f);
+        yield return new WaitForSeconds(chargeTime - 0.3f);
 
         // Code that runs AFTER waiting
         Debug.Log("One second has passed!");
@@ -79,6 +79,6 @@ public class EnemyBlasterScript : MonoBehaviour
         
         // Play the particle system
         newParticle.Play();
-        Destroy(newParticle.gameObject, chargeTime - 0.5f);
+        Destroy(newParticle.gameObject, chargeTime - 0.3f);
     }
 }

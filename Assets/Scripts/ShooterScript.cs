@@ -6,6 +6,7 @@ public class ShooterScript : MonoBehaviour
 
 
     public GameObject bullet;
+    public ParticleSystem particlePrefab;
     public float maxDistance = 50f;
     public float speed = 15f;
 
@@ -63,9 +64,17 @@ public class ShooterScript : MonoBehaviour
         // Destroy the object after it has traveled the specified distance
         if (obj != null)
         {
+            SpawnParticle(particlePrefab, obj.transform.position);
             Destroy(obj);
         }
     }
 
+    public void SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    {
+        // Instantiate the particle system at the given position
+        ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
 
+        // Play the particle system
+        newParticle.Play();
+    }
 }

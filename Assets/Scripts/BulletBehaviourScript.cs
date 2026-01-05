@@ -23,11 +23,11 @@ public class BulletBehaviourScript : MonoBehaviour
 
             //Debug.Log("Enemy hit by bullet!");
         }
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Obstacle"))
         {
             //Debug.Log("HIT GROUND");
-            
-            
+
+            SpawnParticle(particleHitGroundPrefab, other.ClosestPoint(transform.position));
             Destroy(gameObject);
         }
 

@@ -1,0 +1,76 @@
+# MTL file - created by a modified js OBJExporter
+
+newmtl Gate
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pm 1
+Pr 1
+Pds 1
+Pl 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 0 0 0
+map_Kd Gate.png
+map_Pm metalnessMap1.png
+map_Pr metalnessMap1.png
+
+newmtl Chevron
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pm 1
+Pr 1
+Pds 1
+Pl 1
+Pccns 1-1
+Prfl 0.5
+Pior 1.5
+Pshc 0 0 0
+Pshr 1
+Psi 0.32253673672676086
+Psc 1 1 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 1 1 1
+map_Kd Chevron.png
+map_Ke emissiveMap2.png
+map_Pm metalnessMap2.png
+map_Pr metalnessMap2.png
+
+newmtl Chevron_unlit
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pm 1
+Pr 1
+Pds 1
+Pl 1
+Pccns 1-1
+Prfl 0.5
+Pior 1.5
+Pshc 0 0 0
+Pshr 1
+Psi 0.40429773926734924
+Psc 1 1 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 0 0 0
+map_Kd Chevron_unlit.png
+map_Pm metalnessMap2.png
+map_Pr metalnessMap2.png
+
+newmtl Ring
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 1
+Pm 1
+Pr 0.7061845064163208
+Pds 1
+Pl 1
+Ka 1 1 1
+Kd 1 1 1
+Ke 0 0 0
+map_Kd Ring.png
+map_Pm metalnessMap4.png
+map_Pr metalnessMap4.png
