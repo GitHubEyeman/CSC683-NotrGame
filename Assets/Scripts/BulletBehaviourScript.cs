@@ -18,28 +18,31 @@ public class BulletBehaviourScript : MonoBehaviour
             EnemyHpScript enemy = other.GetComponent<EnemyHpScript>();
             if (enemy != null) { 
                 enemy.takeDamage(damage);
-                SpawnParticle(particleHitGroundPrefab, other.ClosestPoint(transform.position));
+                GameObject particle = SpawnParticle(particleHitGroundPrefab, other.ClosestPoint(transform.position));
+                Destroy(particle, 2f);
             }
 
             //Debug.Log("Enemy hit by bullet!");
         }
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Obstacle"))
         {
             //Debug.Log("HIT GROUND");
-            
-            
+
+            GameObject particle = SpawnParticle(particleHitGroundPrefab, other.ClosestPoint(transform.position));
+            Destroy(particle, 2f);
             Destroy(gameObject);
         }
 
     }
 
-    public void SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    public GameObject SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
     {
         // Instantiate the particle system at the given position
         ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
 
         // Play the particle system
         newParticle.Play();
+        return newParticle.gameObject;
     }
 
 }

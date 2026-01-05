@@ -14,8 +14,20 @@ public class EnemyBlasterScript : MonoBehaviour
     private float chargeTimer = -1f;
     private bool isCharging = false;
 
+    void Start()
+    {
+        // Dynamically assign the player by name or through a component search
+        player = GameObject.Find("PlayerPositionTracker")?.transform;  // Finds the player by name
+
+        if (player == null)
+        {
+            Debug.LogError("Player object not found in the scene!");
+            return;
+        }
+    }
     void Update()
     {
+        
         if (player == null) return;
 
         FacePlayer();
@@ -43,6 +55,8 @@ public class EnemyBlasterScript : MonoBehaviour
 
     void Shoot()
     {
+
+        
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 
         Vector3 direction = (player.position - firePoint.position).normalized;
@@ -55,9 +69,9 @@ public class EnemyBlasterScript : MonoBehaviour
 
     void FacePlayer()
     {
-        Vector3 lookDir = player.position - transform.position;
-        lookDir.y = 0f;
-        transform.rotation = Quaternion.LookRotation(lookDir);
+        //Vector3 lookDir = player.position - transform.position;
+        //lookDir.y = 0f;
+        //transform.rotation = Quaternion.LookRotation(lookDir);
     }
 
     IEnumerator HandleTrigger(Collider other)
@@ -66,7 +80,7 @@ public class EnemyBlasterScript : MonoBehaviour
         Instantiate(particlePrefab, other.transform.position, Quaternion.identity);
 
         // Wait 1 second
-        yield return new WaitForSeconds(chargeTime - 0.5f);
+        yield return new WaitForSeconds(chargeTime - 0.3f);
 
         // Code that runs AFTER waiting
         Debug.Log("One second has passed!");
@@ -79,6 +93,6 @@ public class EnemyBlasterScript : MonoBehaviour
         
         // Play the particle system
         newParticle.Play();
-        Destroy(newParticle.gameObject, chargeTime - 0.5f);
+        Destroy(newParticle.gameObject, chargeTime - 0.3f);
     }
 }

@@ -12,18 +12,22 @@ public class EnemyHpScript : MonoBehaviour
 
         if (hp <= 0)
         {
-            SpawnParticle(particleDeadPrefab, transform.position);
+            
+            GameObject particle = SpawnParticle(particleDeadPrefab, transform.position);
+
+            Destroy(particle, 2f);
             Destroy(gameObject);
         }
     }
 
-    public void SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    public GameObject SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
     {
         // Instantiate the particle system at the given position
         ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
 
         // Play the particle system
         newParticle.Play();
+        return newParticle.gameObject;
     }
 
 }

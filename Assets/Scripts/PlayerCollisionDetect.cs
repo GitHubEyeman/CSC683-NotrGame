@@ -6,7 +6,8 @@ public class PlayerCollisionDetect : MonoBehaviour
     public PlayerHPLink playerHPLink;
     public int obstacleDamage = 10;
     public float invincibilityTime = 1f;
-    
+
+    public ParticleSystem[] particlePrefab;
     public Renderer playerRenderer;
     public Material originalMaterial;
     public Material damageMaterial;
@@ -27,12 +28,15 @@ public class PlayerCollisionDetect : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
+        int randNo = Random.Range(0, particlePrefab.Length);
+
         Debug.Log("Trigger entered with: " + other.gameObject.name + " | Tag: " + other.tag);
         
         if (other.CompareTag("Obstacle"))
         {
             Debug.Log("HIT OBSTACLE! Applying damage: " + obstacleDamage);
             TakeDamage(obstacleDamage);
+            SpawnParticle(particlePrefab[randNo], other.transform.position);
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("EnemyBullet"))
@@ -102,5 +106,14 @@ public class PlayerCollisionDetect : MonoBehaviour
         
         isInvincible = false;
         Debug.Log("Invincibility ended");
+    }
+
+    public void SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
+    {
+        // Instantiate the particle system at the given position
+        ParticleSystem newParticle = Instantiate(particlePrefab, position, Quaternion.identity);
+
+        // Play the particle system
+        newParticle.Play();
     }
 }
