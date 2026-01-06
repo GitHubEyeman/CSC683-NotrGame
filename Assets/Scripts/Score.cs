@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Score : MonoBehaviour
 {
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public int score = 0;
     private int highScore;
     private int MinScore = 0;
