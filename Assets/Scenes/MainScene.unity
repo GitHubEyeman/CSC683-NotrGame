@@ -5246,7 +5246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6193476778223175345, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchoredPosition.y
+<<<<<<< HEAD
       value: -25.299988
+=======
+>>>>>>> parent of c583f81 (update jump force)
       value: -25.300003
       objectReference: {fileID: 0}
     - target: {fileID: 7259455711215872522, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
@@ -6535,7 +6538,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: jumpForce
+<<<<<<< HEAD
       value: 60
+=======
+>>>>>>> parent of c583f81 (update jump force)
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
@@ -6544,6 +6550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: gravityScale
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       value: 20
@@ -6560,6 +6567,9 @@ PrefabInstance:
 =======
       value: 10
 >>>>>>> parent of 8bcd4bc (HP! And FIxed Spawn)
+=======
+      value: 10
+>>>>>>> parent of c583f81 (update jump force)
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneChangeSpeed
@@ -6575,7 +6585,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: fallingGravityScale
+<<<<<<< HEAD
       value: 30
+=======
+>>>>>>> parent of c583f81 (update jump force)
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
