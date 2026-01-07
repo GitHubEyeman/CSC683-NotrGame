@@ -5248,7 +5248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6193476778223175345, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.300003
+      value: -25.299988
       objectReference: {fileID: 0}
     - target: {fileID: 7259455711215872522, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_Value
@@ -6536,7 +6536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: jumpForce
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneWidth
@@ -6544,7 +6544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: gravityScale
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneChangeSpeed
@@ -6560,7 +6560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: fallingGravityScale
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: groundCheckDistance
