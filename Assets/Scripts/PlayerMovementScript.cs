@@ -2,56 +2,85 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+    [Header("References")]
     public Rigidbody rb;
+
+    [Header("Jump Settings")]
     public float jumpForce = 30f;
-    public float gravityScale = 10f;
-    public float fallingGravityScale = 40f;
-    
-    // Lane settings
+    public float gravityScale = 5f;
+    public float fallingGravityScale = 10f;
+
+    [Header("Lane Settings")]
     public int numberOfLanes = 5;
     public float laneWidth = 3f;
     public float laneChangeSpeed = 15f;
-    
-    private int currentLane = 2; // Start in middle lane (0-4)
+
+    private int currentLane = 2; // middle lane
     private float targetXPosition;
-    private bool isChangingLane = false;
+    private bool isChangingLane;
+
+    private bool isGrounded;
 
     void Start()
     {
-        // Calculate initial lane position
+        rb.freezeRotation = true;
         targetXPosition = CalculateLanePosition(currentLane);
     }
 
     void Update()
     {
-        // Jumping - can jump anytime (infinite jump)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-        
-        HandleLaneChange();
-        UpdatePosition();
+        HandleJump();
+        HandleLaneInput();
+        MoveToLane();
     }
 
-    void HandleLaneChange()
+    void FixedUpdate()
+    {
+        ApplyCustomGravity();
+    }
+
+    // -------------------- JUMP --------------------
+
+    void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isGrounded = false;
+    }
+
+    // -------------------- GRAVITY --------------------
+
+    void ApplyCustomGravity()
+    {
+        float gravityMultiplier =
+            rb.linearVelocity.y > 0 ? gravityScale : fallingGravityScale;
+
+        rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
+    }
+
+    // -------------------- LANES --------------------
+
+    void HandleLaneInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-        {
             ChangeLane(-1);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-        {
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             ChangeLane(1);
-        }
     }
 
     void ChangeLane(int direction)
     {
         int newLane = currentLane + direction;
-        
-        // Check if new lane is valid (within 0 to numberOfLanes-1)
+
         if (newLane >= 0 && newLane < numberOfLanes)
         {
             currentLane = newLane;
@@ -60,37 +89,39 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    float CalculateLanePosition(int laneIndex)
+    void MoveToLane()
     {
-        // Center lanes around 0
-        float leftmostLane = -((numberOfLanes - 1) * laneWidth) / 2f;
-        return leftmostLane + (laneIndex * laneWidth);
+        if (!isChangingLane) return;
+
+        Vector3 pos = transform.position;
+        float newX = Mathf.MoveTowards(pos.x, targetXPosition, laneChangeSpeed * Time.deltaTime);
+        transform.position = new Vector3(newX, pos.y, pos.z);
+
+        if (Mathf.Abs(newX - targetXPosition) < 0.01f)
+            isChangingLane = false;
     }
 
-    void UpdatePosition()
+    float CalculateLanePosition(int laneIndex)
     {
-        // Get current position
-        Vector3 currentPos = transform.position;
-        
-        // Only update X position for lane changes
-        if (isChangingLane)
+        float leftMost = -((numberOfLanes - 1) * laneWidth) / 2f;
+        return leftMost + laneIndex * laneWidth;
+    }
+
+    // -------------------- GROUND CHECK --------------------
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            float newX = Mathf.MoveTowards(currentPos.x, targetXPosition, 
-                laneChangeSpeed * Time.deltaTime);
-            transform.position = new Vector3(newX, currentPos.y, currentPos.z);
-            
-            // Check if we've reached the target lane
-            if (Mathf.Abs(currentPos.x - targetXPosition) < 0.01f)
-            {
-                isChangingLane = false;
-            }
+            isGrounded = true;
         }
     }
-    
-    void FixedUpdate()
+
+    void OnCollisionExit(Collision collision)
     {
-        // Apply custom gravity
-        float currentGravity = rb.linearVelocity.y >= 0 ? gravityScale : fallingGravityScale;
-        rb.AddForce(Physics.gravity * currentGravity, ForceMode.Acceleration);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
