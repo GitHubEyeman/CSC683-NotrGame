@@ -43,4 +43,11 @@ public class HealthBar : MonoBehaviour
             Time.timeScale = 0;
         }
     }
+
+    public void Heal(float amount)
+    {
+        Health += amount;
+        Health = Mathf.Clamp(Health, 0f, maxHealth);
+    }
+
 }
