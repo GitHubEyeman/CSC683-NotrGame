@@ -216,6 +216,7 @@ MonoBehaviour:
   - {fileID: 4098165565801213800, guid: 0fd057b9f57372841b501628d2e68967, type: 3}
   - {fileID: 40409481763815554, guid: ca4fb3f3712b9424fbe2fb71da74202a, type: 3}
   spawnInterval: 2
+  spawnRangeX: 6
   spawnZ: 200
   minDistance: 5
 --- !u!4 &88059969
@@ -1583,6 +1584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleSpawner
   collectPrefab: {fileID: 0}
   spawnInterval: 20
+  spawnRangeX: 0
   spawnY: 1
   spawnZ: 200
 --- !u!1 &570340568
@@ -6539,9 +6541,12 @@ PrefabInstance:
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: jumpForce
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: 60
 =======
 >>>>>>> parent of c583f81 (update jump force)
+=======
+>>>>>>> parent of 8bcd4bc (HP! And FIxed Spawn)
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
@@ -6550,6 +6555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: gravityScale
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6570,6 +6576,9 @@ PrefabInstance:
 =======
       value: 10
 >>>>>>> parent of c583f81 (update jump force)
+=======
+      value: 10
+>>>>>>> parent of 8bcd4bc (HP! And FIxed Spawn)
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneChangeSpeed
@@ -6586,9 +6595,12 @@ PrefabInstance:
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: fallingGravityScale
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: 30
 =======
 >>>>>>> parent of c583f81 (update jump force)
+=======
+>>>>>>> parent of 8bcd4bc (HP! And FIxed Spawn)
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
