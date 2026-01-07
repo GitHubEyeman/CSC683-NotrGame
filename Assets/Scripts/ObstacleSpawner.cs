@@ -6,20 +6,17 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Prefabs")]
     public GameObject[] obstaclePrefabs;
 
-    [Header("Lane Settings (Must Match Player)")]
-    public int numberOfLanes = 5;
-    public float laneWidth = 3f;
-
     [Header("Spawn Settings")]
     public float spawnInterval = 1.5f;
+    public float spawnRangeX = 6f;
     public float spawnZ = 200f;
-    public float spawnY = 0.5f;
     public float minDistance = 5f;
 
     private readonly List<Vector3> recentSpawnPositions = new List<Vector3>();
 
     void Start()
     {
+        // Safety check
         if (obstaclePrefabs == null || obstaclePrefabs.Length == 0)
         {
             Debug.LogError("ObstacleSpawner: No prefabs assigned.", this);
@@ -32,28 +29,28 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnObstacle()
     {
-        Vector3 spawnPosition = GetValidLaneSpawnPosition();
+        Vector3 spawnPosition = GetValidSpawnPosition();
 
         GameObject prefab =
             obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
 
         Instantiate(prefab, spawnPosition, Quaternion.identity);
 
-        if (recentSpawnPositions.Count > 10)
+        // Limit stored positions (important for moving obstacles)
+        if (recentSpawnPositions.Count > 6)
         {
             recentSpawnPositions.RemoveAt(0);
         }
     }
 
-    Vector3 GetValidLaneSpawnPosition()
+    Vector3 GetValidSpawnPosition()
     {
         const int maxAttempts = 20;
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            int laneIndex = Random.Range(0, numberOfLanes);
-            float x = CalculateLanePosition(laneIndex);
-            Vector3 candidate = new Vector3(x, spawnY, spawnZ);
+            float x = Random.Range(-spawnRangeX, spawnRangeX);
+            Vector3 candidate = new Vector3(x, 0.5f, spawnZ);
 
             bool valid = true;
             foreach (Vector3 pos in recentSpawnPositions)
@@ -72,21 +69,14 @@ public class ObstacleSpawner : MonoBehaviour
             }
         }
 
-        // Fail-safe: spawn anyway (still lane-aligned)
-        int fallbackLane = Random.Range(0, numberOfLanes);
+        // Fail-safe: spawn anyway to avoid freeze
         Vector3 fallback = new Vector3(
-            CalculateLanePosition(fallbackLane),
-            spawnY,
+            Random.Range(-spawnRangeX, spawnRangeX),
+            0.5f,
             spawnZ
         );
 
         recentSpawnPositions.Add(fallback);
         return fallback;
-    }
-
-    float CalculateLanePosition(int laneIndex)
-    {
-        float leftMost = -((numberOfLanes - 1) * laneWidth) / 2f;
-        return leftMost + laneIndex * laneWidth;
     }
 }

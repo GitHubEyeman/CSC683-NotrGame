@@ -54,7 +54,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 18.93183
+  m_Radius: 7
   m_Center: {x: 0, y: 7.08, z: 0}
 --- !u!114 &1001306954870334060
 MonoBehaviour:
@@ -77,12 +77,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3797165336724957068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7204ec5f547379643a15980e3f25db97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectiblePickUp
-  healAmount: 20
+  value: 1
 --- !u!1001 &3430433625355877307
 PrefabInstance:
   m_ObjectHideFlags: 0

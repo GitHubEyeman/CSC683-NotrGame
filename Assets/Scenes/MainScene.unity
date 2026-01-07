@@ -6550,6 +6550,7 @@ PrefabInstance:
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: gravityScale
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: 20
 <<<<<<< HEAD
       objectReference: {fileID: 0}
@@ -6561,6 +6562,9 @@ PrefabInstance:
 =======
       value: 10
 >>>>>>> parent of c583f81 (update jump force)
+=======
+      value: 10
+>>>>>>> parent of 8bcd4bc (HP! And FIxed Spawn)
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneChangeSpeed
