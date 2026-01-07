@@ -9,6 +9,7 @@ public class HealthBar : MonoBehaviour
     public float maxHealth = 100f;
     public float Health;
     private float lerpSpeed = 0.05f;
+    [SerializeField] private GameObject GameOverUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,5 +36,11 @@ public class HealthBar : MonoBehaviour
     {
         Health -= damage;
         Health = Mathf.Clamp(Health, 0f, maxHealth);
+
+        if (Health <= 0)
+        {
+            GameOverUI.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }

@@ -1,23 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 
 
 public class GameOver : MonoBehaviour
 {
-    public bool Gameover = false;
+    
+    [SerializeField] private GameObject RestartBtn;
+    [SerializeField] private GameObject MainMenuBtn;
+    
 
-    public void RestartGame() { 
-        // Reload the current scene to restart the game
-        if Input.GetKeyDown(KeyCode.r & Gameover){
-            UnityEngine.SceneManagement.SceneManager.LoadScene(
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().MainScene);
-        }
-    }
-
-    private void Update()
+    public void RestartLevel()
     {
-        RestartGame();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
     }
 
-
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
 }
