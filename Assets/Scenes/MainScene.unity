@@ -215,11 +215,8 @@ MonoBehaviour:
   - {fileID: 8192688952462807782, guid: 8b76545cc5ea81949bd38d68a8d3678d, type: 3}
   - {fileID: 4098165565801213800, guid: 0fd057b9f57372841b501628d2e68967, type: 3}
   - {fileID: 40409481763815554, guid: ca4fb3f3712b9424fbe2fb71da74202a, type: 3}
-  numberOfLanes: 5
-  laneWidth: 5
   spawnInterval: 2
   spawnZ: 200
-  spawnY: 0.5
   minDistance: 5
 --- !u!4 &88059969
 Transform:
@@ -1584,9 +1581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daeccc7f53652d40abfc39cfc6b6f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleSpawner
-  collectPrefab: {fileID: 3797165336724957068, guid: 49b6d67456b7eba49b1887b67c0c881c, type: 3}
-  numberOfLanes: 5
-  laneWidth: 5
+  collectPrefab: {fileID: 0}
   spawnInterval: 20
   spawnY: 1
   spawnZ: 200
