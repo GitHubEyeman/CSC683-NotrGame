@@ -6544,6 +6544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: gravityScale
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: laneChangeSpeed
