@@ -6,16 +6,33 @@ public class Spawner : MonoBehaviour
     public GameObject[] enemyPrefabs;  // Array of enemy prefabs to choose from
     public float spawnRadius = 10f;    // Radius around the spawner where enemies will spawn
     public float minSpawnDistance = 2f; // Minimum distance between spawns to avoid overlap
-    public float spawnInterval = 5f;    // Time interval between spawns
     public float maxSpawnHeight = 10f;
     public Transform spawnerTransform;  // Reference to the spawner's transform
 
     private Vector3 lastSpawnPosition;  // To keep track of the last spawn position
+    private float currentSpawnInterval = 5f;
+    private Coroutine spawnCoroutine;
 
     void Start()
     {
         lastSpawnPosition = spawnerTransform.position;  // Initialize last spawn position to spawner's position
-        StartCoroutine(SpawnEnemy());  // Start the enemy spawning coroutine
+        
+        // Get initial spawn rate from DifficultyManager
+        if (DifficultyManager.Instance != null)
+        {
+            currentSpawnInterval = DifficultyManager.Instance.GetEnemySpawnRate();
+        }
+        
+        StartSpawning();
+    }
+
+    void StartSpawning()
+    {
+        if (spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+        }
+        spawnCoroutine = StartCoroutine(SpawnEnemy());
     }
 
     IEnumerator SpawnEnemy()
@@ -23,7 +40,7 @@ public class Spawner : MonoBehaviour
         while (true)
         {
             // Wait for the specified interval before spawning the next enemy
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(currentSpawnInterval);
 
             // Randomly pick an enemy prefab from the array
             GameObject enemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
@@ -34,13 +51,18 @@ public class Spawner : MonoBehaviour
             // Instantiate the enemy prefab at the spawn position
             GameObject spawnedEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
 
+            // Set enemy health based on difficulty
+            EnemyHpScript enemyHp = spawnedEnemy.GetComponent<EnemyHpScript>();
+            if (enemyHp != null && DifficultyManager.Instance != null)
+            {
+                enemyHp.hp = DifficultyManager.Instance.GetEnemyHealth();
+            }
+
             // If the Y position of the spawned enemy is above 15, start moving it down
             if (spawnedEnemy.transform.position.y >= maxSpawnHeight)
             {
                 StartCoroutine(MoveDownSmoothly(spawnedEnemy));
             }
-
-            
         }
     }
 
@@ -85,5 +107,10 @@ public class Spawner : MonoBehaviour
         }
 
         enemy.transform.position = targetPos;  // Ensure the enemy ends exactly at target position
+    }
+
+    public void UpdateSpawnRate(float newSpawnRate)
+    {
+        currentSpawnInterval = newSpawnRate;
     }
 }

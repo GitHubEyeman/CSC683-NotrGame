@@ -11,12 +11,13 @@ public class ObstacleSpawner : MonoBehaviour
     public float laneWidth = 3f;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 1.5f;
     public float spawnZ = 200f;
     public float spawnY = 0.5f;
     public float minDistance = 5f;
 
     private readonly List<Vector3> recentSpawnPositions = new List<Vector3>();
+    private float currentSpawnInterval = 1.5f;
+    private Coroutine spawnCoroutine;
 
     void Start()
     {
@@ -27,17 +28,47 @@ public class ObstacleSpawner : MonoBehaviour
             return;
         }
 
-        InvokeRepeating(nameof(SpawnObstacle), 0f, spawnInterval);
+        // Get initial spawn rate from DifficultyManager
+        if (DifficultyManager.Instance != null)
+        {
+            currentSpawnInterval = DifficultyManager.Instance.GetObstacleSpawnRate();
+        }
+
+        StartSpawning();
+    }
+
+    void StartSpawning()
+    {
+        if (spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+        }
+        spawnCoroutine = StartCoroutine(SpawnObstacles());
+    }
+
+    System.Collections.IEnumerator SpawnObstacles()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(currentSpawnInterval);
+            SpawnObstacle();
+        }
     }
 
     void SpawnObstacle()
     {
         Vector3 spawnPosition = GetValidLaneSpawnPosition();
 
-        GameObject prefab =
-            obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+        GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
 
-        Instantiate(prefab, spawnPosition, Quaternion.identity);
+        GameObject newObstacle = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        
+        // Set obstacle speed based on difficulty
+        ObstacleMovement obstacleMovement = newObstacle.GetComponent<ObstacleMovement>();
+        if (obstacleMovement != null && DifficultyManager.Instance != null)
+        {
+            obstacleMovement.speed = DifficultyManager.Instance.GetObstacleSpeed();
+        }
 
         if (recentSpawnPositions.Count > 10)
         {
@@ -88,5 +119,10 @@ public class ObstacleSpawner : MonoBehaviour
     {
         float leftMost = -((numberOfLanes - 1) * laneWidth) / 2f;
         return leftMost + laneIndex * laneWidth;
+    }
+
+    public void UpdateSpawnRate(float newSpawnRate)
+    {
+        currentSpawnInterval = newSpawnRate;
     }
 }
