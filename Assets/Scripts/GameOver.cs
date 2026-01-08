@@ -11,19 +11,10 @@ public class GameOver : MonoBehaviour
 
     public void OpenEndScreen()
     {
+        Time.timeScale = 0;
         GameOverUI.SetActive(true);
     }
 
 
-    public void RestartLevel()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(1);
-    }
-
-    public void GoToMainMenu()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(0);
-    }
+   
 }
