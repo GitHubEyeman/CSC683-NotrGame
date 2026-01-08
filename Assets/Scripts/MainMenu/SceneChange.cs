@@ -15,4 +15,16 @@ public class SceneChange : MonoBehaviour
         print("Quit");
         Application.Quit();
     }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
 }

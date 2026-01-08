@@ -7,10 +7,13 @@ using TMPro;
 
 public class GameOver : MonoBehaviour
 {
-    
-    [SerializeField] private GameObject RestartBtn;
-    [SerializeField] private GameObject MainMenuBtn;
-    
+    private GameObject GameOverUI;
+
+    public void OpenEndScreen()
+    {
+        GameOverUI.SetActive(true);
+    }
+
 
     public void RestartLevel()
     {
