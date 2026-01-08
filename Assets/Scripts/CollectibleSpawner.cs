@@ -10,11 +10,9 @@ public class CollectibleSpawner : MonoBehaviour
     public float laneWidth = 3f;
 
     [Header("Spawn Settings")]
+    public float spawnInterval = 0.5f;
     public float spawnY = 1f;
     public float spawnZ = 200f;
-
-    private float currentSpawnInterval = 0.5f;
-    private Coroutine spawnCoroutine;
 
     void Start()
     {
@@ -25,31 +23,7 @@ public class CollectibleSpawner : MonoBehaviour
             return;
         }
 
-        // Get initial spawn rate from DifficultyManager
-        if (DifficultyManager.Instance != null)
-        {
-            currentSpawnInterval = DifficultyManager.Instance.GetCollectibleSpawnRate();
-        }
-
-        StartSpawning();
-    }
-
-    void StartSpawning()
-    {
-        if (spawnCoroutine != null)
-        {
-            StopCoroutine(spawnCoroutine);
-        }
-        spawnCoroutine = StartCoroutine(SpawnCollectibles());
-    }
-
-    System.Collections.IEnumerator SpawnCollectibles()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(currentSpawnInterval);
-            SpawnCollect();
-        }
+        InvokeRepeating(nameof(SpawnCollect), 0f, spawnInterval);
     }
 
     void SpawnCollect()
@@ -65,10 +39,5 @@ public class CollectibleSpawner : MonoBehaviour
     {
         float leftMost = -((numberOfLanes - 1) * laneWidth) / 2f;
         return leftMost + laneIndex * laneWidth;
-    }
-
-    public void UpdateSpawnRate(float newSpawnRate)
-    {
-        currentSpawnInterval = newSpawnRate;
     }
 }
