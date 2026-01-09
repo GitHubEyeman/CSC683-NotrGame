@@ -40,6 +40,7 @@ public class HealthBar : MonoBehaviour
     public float Health;
     private float lerpSpeed = 0.05f;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -77,7 +78,7 @@ public class HealthBar : MonoBehaviour
                 EaseHealthSlider.value = Mathf.Lerp(EaseHealthSlider.value, target, t);
 
                 // Snap when very close to avoid never reaching the exact value
-                if (Mathf.Abs(EaseHealthSlider.value - target) < 0.05f)
+                if (Mathf.Abs(EaseHealthSlider.value - target) < 0.0005f)
                     EaseHealthSlider.value = target;
             }
         }

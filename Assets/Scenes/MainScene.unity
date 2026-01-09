@@ -2267,7 +2267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045179412}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2656,7 +2656,7 @@ GameObject:
   - component: {fileID: 1182584320}
   - component: {fileID: 1182584322}
   - component: {fileID: 1182584321}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreLbl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2861,7 +2861,7 @@ GameObject:
   - component: {fileID: 1229540871}
   - component: {fileID: 1229540873}
   - component: {fileID: 1229540872}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3000,7 +3000,7 @@ GameObject:
   - component: {fileID: 1237213092}
   - component: {fileID: 1237213094}
   - component: {fileID: 1237213093}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3418,8 +3418,7 @@ GameObject:
   - component: {fileID: 1396017221}
   - component: {fileID: 1396017220}
   - component: {fileID: 1396017222}
-  - component: {fileID: 1396017223}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3498,23 +3497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1cabfcd24023b3428115890ad799190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChange
---- !u!114 &1396017223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396017217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 702301961e557ba4f995800479125439, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthBar
-  GameOverPanel: {fileID: 1396017217}
-  healthSlider: {fileID: 0}
-  EaseHealthSlider: {fileID: 0}
-  maxHealth: 100
-  Health: 0
 --- !u!1 &1435480692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,7 +3783,7 @@ GameObject:
   - component: {fileID: 1553374194}
   - component: {fileID: 1553374196}
   - component: {fileID: 1553374195}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOverLbl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4694,7 +4676,7 @@ GameObject:
   - component: {fileID: 1735300092}
   - component: {fileID: 1735300091}
   - component: {fileID: 1735300090}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RestartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,6 +4923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 414416143540337174, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 624354536257887291, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: scoreText
       value: 
@@ -4973,10 +4959,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP UI
       objectReference: {fileID: 0}
+    - target: {fileID: 846405472230499889, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1249302415948890749, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300060, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+    - target: {fileID: 1922713753122401077, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: GameOverPanel
+      value: 
+      objectReference: {fileID: 1396017217}
+    - target: {fileID: 2609270640089003232, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993607907391092768, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4280529778368248348, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5019,7 +5021,11 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 6181062703740350496, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_PlaneDistance
-      value: 5
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181062703740350496, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -741289879
       objectReference: {fileID: 0}
     - target: {fileID: 6193476778223175345, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5040,6 +5046,14 @@ PrefabInstance:
     - target: {fileID: 6193476778223175345, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25.300003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941579942315085604, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098613011867626268, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7259455711215872522, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_Value
@@ -5137,6 +5151,10 @@ PrefabInstance:
       propertyPath: m_UseSpriteMesh
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8009401274877234890, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8075857624158187340, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -5156,6 +5174,10 @@ PrefabInstance:
     - target: {fileID: 8315911511911659439, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.8238659
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559242789434107287, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5302,7 +5324,7 @@ GameObject:
   - component: {fileID: 1871451146}
   - component: {fileID: 1871451145}
   - component: {fileID: 1871451144}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainMenuBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
