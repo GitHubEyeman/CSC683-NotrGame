@@ -1,32 +1,61 @@
+/* Pseudocode / Plan (detailed)
+ - On Start:
+   1. Set current `Health` to `maxHealth`.
+   2. If `healthSlider` exists:
+      a. Set its `maxValue` to `maxHealth`.
+      b. Set its `value` to `Health`.
+   3. If `EaseHealthSlider` exists:
+      a. Set its `maxValue` to `maxHealth`.
+      b. Set its `value` to `Health`.
+ - Each frame (Update):
+   1. If `healthSlider` exists and `healthSlider.value` differs from `Health`, assign `healthSlider.value = Health`.
+   2. If both `EaseHealthSlider` and `healthSlider` exist:
+      a. Compute `target = healthSlider.value`.
+      b. If `EaseHealthSlider.value` is not approximately equal to `target`:
+         - Compute interpolation factor `t = lerpSpeed * Time.deltaTime`.
+         - Update eased value: `EaseHealthSlider.value = Mathf.Lerp(EaseHealthSlider.value, target, t)`.
+         - If very close to `target` (e.g. within 0.05), snap `EaseHealthSlider.value = target`.
+ - TakeDamage(damage):
+   1. Subtract `damage` from `Health`.
+   2. Clamp `Health` between 0 and `maxHealth`.
+   3. If `Health <= 0`:
+      a. If `GameOverPanel` is not null, call `GameOverPanel.SetActive(true)` (call method, not assign).
+      b. Pause game with `Time.timeScale = 0`.
+ - Heal(amount):
+   1. Add `amount` to `Health`.
+   2. Clamp `Health` between 0 and `maxHealth`.
+ - Always null-check GameObject/Sliders before accessing methods/properties.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class HealthBar : MonoBehaviour
 {
+    public GameObject GameOverPanel;
     public Slider healthSlider;
     public Slider EaseHealthSlider;
     public float maxHealth = 100f;
     public float Health;
     private float lerpSpeed = 0.05f;
 
-    /* Pseudocode / Plan (detailed)
-     - On Start: set current Health to maxHealth.
-     - Each frame (Update):
-       1. If `healthSlider` exists and its value differs from `Health`, set `healthSlider.value` directly to `Health`.
-       2. If `EaseHealthSlider` and `healthSlider` both exist:
-          a. Use the `healthSlider.value` as the target value to ease toward (keeps UI-driven value as source).
-          b. If the eased slider is not approximately equal to the target:
-             - Smoothly interpolate the eased slider's `value` toward the target using `Mathf.Lerp`.
-             - Scale the lerp factor by `Time.deltaTime` so the easing is frame-rate independent.
-             - After lerping, if the eased value is very close to the target, snap it to the exact target to avoid asymptotic never-reaching behavior.
-     - Keep other methods (TakeDamage/Heal) the same but ensure Health stays clamped.
-    */
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Health = maxHealth;
+
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = Health;
+        }
+
+        if (EaseHealthSlider != null)
+        {
+            EaseHealthSlider.maxValue = maxHealth;
+            EaseHealthSlider.value = Health;
+        }
     }
 
     // Update is called once per frame  
@@ -44,7 +73,6 @@ public class HealthBar : MonoBehaviour
             if (!Mathf.Approximately(EaseHealthSlider.value, target))
             {
                 // Scale lerp by Time.deltaTime for consistent easing across frame rates
-                // Multiply by a constant to make lerpSpeed feel like the original value (tweak as needed)
                 float t = lerpSpeed * Time.deltaTime * 60f;
                 EaseHealthSlider.value = Mathf.Lerp(EaseHealthSlider.value, target, t);
 
@@ -62,9 +90,13 @@ public class HealthBar : MonoBehaviour
 
         if (Health <= 0f)
         {
-            Debug.Log("Player is Dead");
+            if (GameOverPanel != null)
+            {
+                // Correct usage: call the SetActive method (do not assign to it)
+                GameOverPanel.SetActive(true);
+            }
+            Time.timeScale = 0;
         }
-            
     }
 
     public void Heal(float amount)
@@ -72,5 +104,4 @@ public class HealthBar : MonoBehaviour
         Health += amount;
         Health = Mathf.Clamp(Health, 0f, maxHealth);
     }
-
 }
