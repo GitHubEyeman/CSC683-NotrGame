@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class CollectiblePickUp : MonoBehaviour
 {
-    public int value = 1;
+    public float healAmount = 20f;
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Example: add to score manager
-            // ScoreManager.Instance.AddCoins(value);
-            // asalnya benda ni utk coins tapi aku tak tau nak buat caner sorry
+            HealthBar healthBar = FindFirstObjectByType<HealthBar>();
+
+            if (healthBar != null)
+            {
+                healthBar.Heal(healAmount);
+            }
 
             Destroy(gameObject);
         }
