@@ -22,12 +22,25 @@ public class CollectibleSpawner : MonoBehaviour
             enabled = false;
             return;
         }
-
+    }
+    
+    public void StartSpawning()
+    {
+        CancelInvoke();
         InvokeRepeating(nameof(SpawnCollect), 0f, spawnInterval);
+    }
+    
+    public void StopSpawning()
+    {
+        CancelInvoke();
     }
 
     void SpawnCollect()
     {
+        // Check if game is running and not paused
+        if (GameManager.Instance == null || !GameManager.Instance.isGameRunning || GameManager.Instance.isGamePaused)
+            return;
+            
         int randomLane = Random.Range(0, numberOfLanes);
         float xPos = CalculateLanePosition(randomLane);
 

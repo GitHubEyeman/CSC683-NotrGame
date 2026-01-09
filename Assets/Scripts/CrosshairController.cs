@@ -2,49 +2,49 @@ using UnityEngine;
 
 public class CrosshairController : MonoBehaviour
 {
-    public GameObject crosshair;  // Reference to your crosshair sprite
-    private bool isCrosshairActive = true;  // To track if the crosshair is active
+    public GameObject crosshair;
     private RectTransform crosshairRectTransform;
-
+    
     void Start()
     {
-        // Initialize the crosshair and hide the system cursor
-        Cursor.visible = false;
-        crosshair.SetActive(true);
-
-        // Get the RectTransform of the crosshair
-        crosshairRectTransform = crosshair.GetComponent<RectTransform>();
+        if (crosshair != null)
+        {
+            crosshairRectTransform = crosshair.GetComponent<RectTransform>();
+            crosshair.SetActive(false); // Start hidden
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
-
+    
     void Update()
     {
-        // If the crosshair is active, update its position to follow the mouse
-        if (isCrosshairActive)
+        // Only show crosshair when game is running AND not paused
+        if (GameManager.Instance != null)
         {
-            Vector3 mousePos = Input.mousePosition;  // Get the mouse position in screen space
-            crosshairRectTransform.position = mousePos;  // Set the crosshair's position to the mouse position
-        }
-
-        // Toggle visibility when ESC key is pressed
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ToggleCursorAndCrosshair();
-        }
-    }
-
-    void ToggleCursorAndCrosshair()
-    {
-        isCrosshairActive = !isCrosshairActive;
-
-        if (isCrosshairActive)
-        {
-            Cursor.visible = false;  // Hide the system cursor
-            crosshair.SetActive(true);  // Show the crosshair
-        }
-        else
-        {
-            Cursor.visible = true;  // Show the system cursor
-            crosshair.SetActive(false);  // Hide the crosshair
+            bool shouldShowCrosshair = GameManager.Instance.isGameRunning && !GameManager.Instance.isGamePaused;
+            
+            if (crosshair != null)
+            {
+                if (shouldShowCrosshair && !crosshair.activeSelf)
+                {
+                    crosshair.SetActive(true);
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                else if (!shouldShowCrosshair && crosshair.activeSelf)
+                {
+                    crosshair.SetActive(false);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                }
+            }
+            
+            // Update crosshair position
+            if (shouldShowCrosshair && crosshair != null && crosshair.activeSelf)
+            {
+                Vector3 mousePos = Input.mousePosition;
+                crosshairRectTransform.position = mousePos;
+            }
         }
     }
 }

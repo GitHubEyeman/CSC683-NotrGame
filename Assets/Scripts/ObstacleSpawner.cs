@@ -26,12 +26,27 @@ public class ObstacleSpawner : MonoBehaviour
             enabled = false;
             return;
         }
-
+    }
+    
+    // Add this method
+    public void StartSpawning()
+    {
+        CancelInvoke();
         InvokeRepeating(nameof(SpawnObstacle), 0f, spawnInterval);
+    }
+    
+    // Add this method
+    public void StopSpawning()
+    {
+        CancelInvoke();
     }
 
     void SpawnObstacle()
     {
+        // Check if game is running and not paused
+        if (GameManager.Instance == null || !GameManager.Instance.isGameRunning || GameManager.Instance.isGamePaused)
+            return;
+            
         Vector3 spawnPosition = GetValidLaneSpawnPosition();
 
         GameObject prefab =

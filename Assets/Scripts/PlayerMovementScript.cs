@@ -29,6 +29,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance == null || !GameManager.Instance.isGameRunning || GameManager.Instance.isGamePaused)
+        return;
         HandleJump();
         HandleLaneInput();
         MoveToLane();
