@@ -1,22 +1,22 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class RebindKeys : MonoBehaviour
 {
-    public enum ActionKey { Jump, Left, Right, Shot }
+    public enum ActionKey { Jump, Left, Right, Shoot }
 
     [Header("UI (optional)")]
-    public Text jumpKeyText;
-    public Text leftKeyText;
-    public Text rightKeyText;
-    public Text shotKeyText;
+    public TextMeshProUGUI jumpKeyText;
+    public TextMeshProUGUI leftKeyText;
+    public TextMeshProUGUI rightKeyText;
+    public TextMeshProUGUI shootKeyText;
 
     // Defaults
     private readonly KeyCode defaultJump = KeyCode.Space;
     private readonly KeyCode defaultLeft = KeyCode.A;
     private readonly KeyCode defaultRight = KeyCode.D;
-    private readonly KeyCode defaultShot = KeyCode.LeftControl;
+    private readonly KeyCode defaultShoot = KeyCode.LeftControl;
 
     // Runtime bindings
     private static readonly string PrefPrefix = "Rebind_";
@@ -60,7 +60,7 @@ public class RebindKeys : MonoBehaviour
     public void StartRebindJump() => StartRebind(ActionKey.Jump);
     public void StartRebindLeft() => StartRebind(ActionKey.Left);
     public void StartRebindRight() => StartRebind(ActionKey.Right);
-    public void StartRebindShot() => StartRebind(ActionKey.Shot);
+    public void StartRebindShot() => StartRebind(ActionKey.Shoot);
 
     public void CancelRebind()
     {
@@ -73,7 +73,7 @@ public class RebindKeys : MonoBehaviour
         SaveBinding(ActionKey.Jump, defaultJump);
         SaveBinding(ActionKey.Left, defaultLeft);
         SaveBinding(ActionKey.Right, defaultRight);
-        SaveBinding(ActionKey.Shot, defaultShot);
+        SaveBinding(ActionKey.Shoot, defaultShot);
         RefreshAllUI();
     }
 
@@ -92,7 +92,7 @@ public class RebindKeys : MonoBehaviour
             case ActionKey.Jump: return KeyCode.Space;
             case ActionKey.Left: return KeyCode.A;
             case ActionKey.Right: return KeyCode.D;
-            case ActionKey.Shot: return KeyCode.LeftControl;
+            case ActionKey.Shoot: return KeyCode.LeftControl;
             default: return KeyCode.None;
         }
     }
@@ -120,10 +120,10 @@ public class RebindKeys : MonoBehaviour
         UpdateUIText(ActionKey.Jump, jumpKeyText);
         UpdateUIText(ActionKey.Left, leftKeyText);
         UpdateUIText(ActionKey.Right, rightKeyText);
-        UpdateUIText(ActionKey.Shot, shotKeyText);
+        UpdateUIText(ActionKey.Shoot, shotKeyText);
     }
 
-    private void UpdateUIText(ActionKey action, Text ui)
+    private void UpdateUIText(ActionKey action, TextMeshProUGUI ui)
     {
         if (ui == null) return;
 
@@ -141,10 +141,10 @@ public class RebindKeys : MonoBehaviour
     {
         switch (action)
         {
-            case ActionKey.Jump: if (jumpKeyText) jumpKeyText.text = text; break;
-            case ActionKey.Left: if (leftKeyText) leftKeyText.text = text; break;
-            case ActionKey.Right: if (rightKeyText) rightKeyText.text = text; break;
-            case ActionKey.Shot: if (shotKeyText) shotKeyText.text = text; break;
+            case ActionKey.Jump: if (jumpKeyText != null) jumpKeyText.text = text; break;
+            case ActionKey.Left: if (leftKeyText != null) leftKeyText.text = text; break;
+            case ActionKey.Right: if (rightKeyText != null) rightKeyText.text = text; break;
+            case ActionKey.Shot: if (shootKeyText != null) shootKeyText.text = text; break;
         }
     }
 }
