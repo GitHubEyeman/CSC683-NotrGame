@@ -60,7 +60,7 @@ public class RebindKeys : MonoBehaviour
     public void StartRebindJump() => StartRebind(ActionKey.Jump);
     public void StartRebindLeft() => StartRebind(ActionKey.Left);
     public void StartRebindRight() => StartRebind(ActionKey.Right);
-    public void StartRebindShot() => StartRebind(ActionKey.Shoot);
+    public void StartRebindShoot() => StartRebind(ActionKey.Shoot);
 
     public void CancelRebind()
     {
@@ -73,7 +73,7 @@ public class RebindKeys : MonoBehaviour
         SaveBinding(ActionKey.Jump, defaultJump);
         SaveBinding(ActionKey.Left, defaultLeft);
         SaveBinding(ActionKey.Right, defaultRight);
-        SaveBinding(ActionKey.Shoot, defaultShot);
+        SaveBinding(ActionKey.Shoot, defaultShoot);
         RefreshAllUI();
     }
 
@@ -120,7 +120,7 @@ public class RebindKeys : MonoBehaviour
         UpdateUIText(ActionKey.Jump, jumpKeyText);
         UpdateUIText(ActionKey.Left, leftKeyText);
         UpdateUIText(ActionKey.Right, rightKeyText);
-        UpdateUIText(ActionKey.Shoot, shotKeyText);
+        UpdateUIText(ActionKey.Shoot, shootKeyText);
     }
 
     private void UpdateUIText(ActionKey action, TextMeshProUGUI ui)
@@ -144,7 +144,7 @@ public class RebindKeys : MonoBehaviour
             case ActionKey.Jump: if (jumpKeyText != null) jumpKeyText.text = text; break;
             case ActionKey.Left: if (leftKeyText != null) leftKeyText.text = text; break;
             case ActionKey.Right: if (rightKeyText != null) rightKeyText.text = text; break;
-            case ActionKey.Shot: if (shootKeyText != null) shootKeyText.text = text; break;
+            case ActionKey.Shoot: if (shootKeyText != null) shootKeyText.text = text; break;
         }
     }
 }

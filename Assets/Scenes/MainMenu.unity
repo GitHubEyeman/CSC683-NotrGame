@@ -2056,7 +2056,7 @@ MonoBehaviour:
   jumpKeyText: {fileID: 946709384}
   leftKeyText: {fileID: 839556353}
   rightKeyText: {fileID: 1930105636}
-  shotKeyText: {fileID: 2052172734}
+  shootKeyText: {fileID: 0}
 --- !u!1 &1453197960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,7 +2346,7 @@ GameObject:
   - component: {fileID: 1592144324}
   - component: {fileID: 1592144323}
   m_Layer: 5
-  m_Name: ShotBtn
+  m_Name: ShootBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2418,7 +2418,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1428245785}
         m_TargetAssemblyTypeName: RebindKeys, Assembly-CSharp
-        m_MethodName: StartRebindShot
+        m_MethodName: StartRebindShoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
