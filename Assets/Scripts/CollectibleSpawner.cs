@@ -18,7 +18,7 @@ public class CollectibleSpawner : MonoBehaviour
     {
         if (collectPrefabs == null)
         {
-            Debug.LogError("CollectibleSpawner: Collectible prefab not assigned.", this);
+            Debug.LogError("CollectibleSpawner: No collectible prefabs assigned.", this);
             enabled = false;
             return;
         }

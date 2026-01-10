@@ -1,29 +1,78 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class Score : MonoBehaviour
 {
+    [Header("UI")]
     public TextMeshProUGUI scoreText;
-    public int score = 0;
-    private int highScore;
-    private int MinScore = 0;
+    public TextMeshProUGUI multiplierText;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Score Settings")]
+    public int baseScorePerSecond = 1;
+
+    private int score = 0;
+    private int scoreMultiplier = 1;
+
+    private Coroutine multiplierRoutine;
+
     void Start()
     {
-        score = MinScore;
+        score = 0;
+        UpdateUI();
+        UpdateMultiplierUI();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-        if (Time.timeScale == 1)
-            score += 1;
+        score += baseScorePerSecond * scoreMultiplier;
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
         if (scoreText != null)
-            {
-                scoreText.text = "Score: " + score.ToString();
-            }
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
+
+    void UpdateMultiplierUI()
+    {
+        if (multiplierText == null) return;
+
+        if (scoreMultiplier > 1)
+        {
+            multiplierText.gameObject.SetActive(true);
+            multiplierText.text = "Score Multiplier x" + scoreMultiplier;
+        }
+        else
+        {
+            multiplierText.gameObject.SetActive(false);
+        }
+    }
+
+    // ---------------- MULTIPLIER LOGIC ----------------
+
+    public void SetMultiplierForDuration(int multiplier, float duration)
+    {
+        if (multiplierRoutine != null)
+        {
+            StopCoroutine(multiplierRoutine);
+        }
+
+        multiplierRoutine = StartCoroutine(MultiplierTimer(multiplier, duration));
+    }
+
+    private IEnumerator MultiplierTimer(int multiplier, float duration)
+    {
+        scoreMultiplier = multiplier;
+        UpdateMultiplierUI();
+
+        yield return new WaitForSeconds(duration);
+
+        scoreMultiplier = 1;
+        UpdateMultiplierUI();
+        multiplierRoutine = null;
     }
 }
