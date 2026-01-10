@@ -33,6 +33,16 @@ public class BulletBehaviourScript : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (other.gameObject.CompareTag("ObstacleDestroyable"))
+        {
+            GameObject particle = SpawnParticle(particleHitGroundPrefab, other.ClosestPoint(transform.position));
+            Destroy(particle, 2f);
+            Destroy(gameObject);
+
+            ObstacleDestroyableScript script = other.GetComponent<ObstacleDestroyableScript>();
+            script.TakeDamage(1);
+        }
+
     }
 
     public GameObject SpawnParticle(ParticleSystem particlePrefab, Vector3 position)
