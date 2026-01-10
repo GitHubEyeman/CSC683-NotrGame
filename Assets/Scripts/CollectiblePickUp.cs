@@ -29,6 +29,7 @@ public class CollectiblePickUp : MonoBehaviour
 
             if (particlePrefab != null) SpawnParticle(particlePrefab, transform.position);
             Destroy(gameObject);
+            AudioManager.Instance.Play("PowerUp");
         }
     }
 

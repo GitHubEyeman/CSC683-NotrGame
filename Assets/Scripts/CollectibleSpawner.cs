@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CollectibleSpawner : MonoBehaviour
 {
-    [Header("Collectible Prefab")]
-    public GameObject[] collectPrefabs;
+    [Header("Collectible Prefabs")]
+    public GameObject[] collectiblePrefabs;
 
     [Header("Lane Settings (Must Match Player)")]
     public int numberOfLanes = 5;
@@ -16,7 +16,7 @@ public class CollectibleSpawner : MonoBehaviour
 
     void Start()
     {
-        if (collectPrefabs == null)
+        if (collectiblePrefabs == null || collectiblePrefabs.Length == 0)
         {
             Debug.LogError("CollectibleSpawner: No collectible prefabs assigned.", this);
             enabled = false;
@@ -31,11 +31,11 @@ public class CollectibleSpawner : MonoBehaviour
         int randomLane = Random.Range(0, numberOfLanes);
         float xPos = CalculateLanePosition(randomLane);
 
-        GameObject randomPrefab =
-            collectPrefabs[Random.Range(0, collectPrefabs.Length)];
+        GameObject prefab =
+            collectiblePrefabs[Random.Range(0, collectiblePrefabs.Length)];
 
         Vector3 spawnPos = new Vector3(xPos, spawnY, spawnZ);
-        Instantiate(randomPrefab, spawnPos, Quaternion.identity);
+        Instantiate(prefab, spawnPos, Quaternion.identity);
     }
 
     float CalculateLanePosition(int laneIndex)

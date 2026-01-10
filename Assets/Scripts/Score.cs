@@ -11,7 +11,7 @@ public class Score : MonoBehaviour
     [Header("Score Settings")]
     public int baseScorePerSecond = 1;
 
-    private int score = 0;
+    public int score = 0;
     private int scoreMultiplier = 1;
 
     private Coroutine multiplierRoutine;

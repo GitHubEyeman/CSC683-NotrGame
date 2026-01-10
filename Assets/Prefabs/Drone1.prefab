@@ -321,6 +321,7 @@ MonoBehaviour:
   hp: 3
   particleDeadPrefab: {fileID: 3593127046002534563, guid: fc52d77f868cebf4087f2f9d43489858, type: 3}
   enemyDestroy: {fileID: 5057242652747420780}
+  enemyDestroy: {fileID: 0}
 --- !u!114 &5120882771765814006
 MonoBehaviour:
   m_ObjectHideFlags: 0
