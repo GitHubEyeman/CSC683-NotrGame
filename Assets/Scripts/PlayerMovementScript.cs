@@ -1,121 +1,127 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour
 {
-    [Header("References")]
-    public Rigidbody rb;
+    [Header("Movement")]
+    public float moveSpeed = 8f;          // Max horizontal speed
+    public float horizontalSmooth = 0.1f; // How fast we reach target X velocity
+    public float jumpForce = 7f;
+    public float airControlFactor = 0.5f; // Reduce horizontal control in air
 
-    [Header("Movement Settings")]
-    public float moveSpeed = 15f;
-    public float maxXPosition = 10f; // Maximum allowed X position (right boundary)
-    public float minXPosition = -10f; // Minimum allowed X position (left boundary)
+    [Header("Bike Lean")]
+    public float maxLeanAngle = 20f;      // Max tilt angle (degrees)
+    public float leanSmooth = 5f;         // Smoothness of leaning
 
-    [Header("Jump Settings")]
-    public float jumpForce = 30f;
-    public float gravityScale = 5f;
-    public float fallingGravityScale = 10f;
+    [Header("Custom Gravity")]
+    public float gravityForce = 20f;
     public AudioSource jumpSound;
 
-    private bool isGrounded;
+    private Rigidbody rb;
     private float horizontalInput;
+    private bool isGrounded;
 
-    void Start()
+    // Horizontal movement smoothing
+    private float targetXVelocity;
+    private float currentXVelocity;
+    private float velocityXSmooth;
+
+    void Awake()
     {
-        rb.freezeRotation = true;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
 
     void Update()
     {
-        HandleJump();
-        HandleHorizontalInput();
-        ApplyMovement();
-    }
+        // Get input (-1 left, 0 none, 1 right)
+        horizontalInput = Input.GetAxisRaw("Horizontal");
 
-    void FixedUpdate()
-    {
-        ApplyCustomGravity();
-    }
-
-    // -------------------- HORIZONTAL MOVEMENT --------------------
-    void HandleHorizontalInput()
-    {
-        // Get horizontal input from both arrow keys and A/D keys
-        horizontalInput = 0f;
-        
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            horizontalInput = -1f;
-        
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            horizontalInput = 1f;
-    }
-
-    void ApplyMovement()
-    {
-        if (horizontalInput != 0f)
-        {
-            // Calculate new position
-            Vector3 newPosition = transform.position + 
-                                  new Vector3(horizontalInput * moveSpeed * Time.deltaTime, 0f, 0f);
-            
-            // Clamp the X position to stay within boundaries
-            newPosition.x = Mathf.Clamp(newPosition.x, minXPosition, maxXPosition);
-            
-            // Apply the movement
-            transform.position = newPosition;
-        }
-    }
-
-    // -------------------- JUMP --------------------
-    void HandleJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Jump
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
             Jump();
         }
     }
 
+    void FixedUpdate()
+    {
+        Move();
+        ApplyCustomGravity();
+        HandleLean();
+    }
+
+    void Move()
+    {
+        // Apply reduced control in air
+        float controlFactor = isGrounded ? 1f : airControlFactor;
+
+        // Target horizontal velocity
+        targetXVelocity = horizontalInput * moveSpeed * controlFactor;
+
+        // Smoothly interpolate current X velocity toward target
+        currentXVelocity = Mathf.SmoothDamp(
+            rb.linearVelocity.x,
+            targetXVelocity,
+            ref velocityXSmooth,
+            horizontalSmooth
+        );
+
+        // Apply velocity
+        Vector3 velocity = rb.linearVelocity;
+        velocity.x = currentXVelocity;
+        rb.linearVelocity = velocity;
+    }
+
     void Jump()
     {
+        // Reset vertical velocity for consistent jump
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        // Prevent double jump
         isGrounded = false;
         jumpSound.Play();
     }
 
-    // -------------------- GRAVITY --------------------
     void ApplyCustomGravity()
     {
-        float gravityMultiplier =
-            rb.linearVelocity.y > 0 ? gravityScale : fallingGravityScale;
-
-        rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
     }
 
-    // -------------------- GROUND CHECK --------------------
+    void HandleLean()
+    {
+        // Target lean angle based on horizontal input
+        float targetAngle = -horizontalInput * maxLeanAngle;
+
+        // Smoothly interpolate current rotation toward target
+        Vector3 currentEuler = transform.eulerAngles;
+        float smoothZ = Mathf.LerpAngle(currentEuler.z, targetAngle, Time.fixedDeltaTime * leanSmooth);
+
+        transform.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, smoothZ);
+    }
+
+    // -------- Ground Check via Collisions --------
+
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (!collision.gameObject.CompareTag("Ground")) return;
+
+        foreach (ContactPoint contact in collision.contacts)
         {
-            isGrounded = true;
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f)
+            {
+                isGrounded = true;
+                return;
+            }
         }
+
+        isGrounded = false;
     }
 
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
             isGrounded = false;
-        }
-    }
-
-    // Optional: Draw boundaries in the editor for visualization
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 leftBoundary = new Vector3(minXPosition, transform.position.y, transform.position.z);
-        Vector3 rightBoundary = new Vector3(maxXPosition, transform.position.y, transform.position.z);
-        
-        Gizmos.DrawLine(leftBoundary + Vector3.up * 2f, leftBoundary + Vector3.down * 2f);
-        Gizmos.DrawLine(rightBoundary + Vector3.up * 2f, rightBoundary + Vector3.down * 2f);
     }
 }
