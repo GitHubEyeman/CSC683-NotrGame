@@ -5,6 +5,7 @@ public class EnemyHpScript : MonoBehaviour
     
     public int hp = 3;
     public ParticleSystem particleDeadPrefab;
+    public AudioSource enemyDestroy;
 
     public void takeDamage(int damage)
     {
@@ -18,7 +19,18 @@ public class EnemyHpScript : MonoBehaviour
             score.score += 1000;
 
             Destroy(particle, 2f);
+            
+            if (enemyDestroy != null)
+            {
+                enemyDestroy.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Destroy AudioSource is not Assigned!");
+            }
             Destroy(gameObject);
+            
+
         }
     }
 

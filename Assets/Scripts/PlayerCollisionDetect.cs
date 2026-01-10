@@ -11,6 +11,8 @@ public class PlayerCollisionDetect : MonoBehaviour
     public Renderer playerRenderer;
     public Material originalMaterial;
     public Material damageMaterial;
+    public AudioSource destroy;
+    public AudioSource takeHit;
     
     private bool isInvincible = false;
     private Coroutine blinkCoroutine;
@@ -37,12 +39,32 @@ public class PlayerCollisionDetect : MonoBehaviour
             Debug.Log("HIT OBSTACLE! Applying damage: " + obstacleDamage);
             TakeDamage(obstacleDamage);
             SpawnParticle(particlePrefab[randNo], other.transform.position);
+
+            if (destroy != null)
+            {
+                destroy.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Destroy AudioSource is not Assigned!");
+            }
+
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("EnemyBullet"))
         {
             Debug.Log("Hit by enemy bullet!");
             TakeDamage(10); // Or get damage from bullet script
+
+            if (takeHit != null)
+            {
+                takeHit.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Hit AudioSource is not Assigned!");
+            }
+
             Destroy(other.gameObject);
         }
     }

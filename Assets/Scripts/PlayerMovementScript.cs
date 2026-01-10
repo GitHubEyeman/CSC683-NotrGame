@@ -14,6 +14,7 @@ public class PlayerMovementScript : MonoBehaviour
     public float jumpForce = 30f;
     public float gravityScale = 5f;
     public float fallingGravityScale = 10f;
+    public AudioSource jumpSound;
 
     private bool isGrounded;
     private float horizontalInput;
@@ -78,6 +79,7 @@ public class PlayerMovementScript : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         isGrounded = false;
+        jumpSound.Play();
     }
 
     // -------------------- GRAVITY --------------------

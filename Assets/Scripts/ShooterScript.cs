@@ -15,6 +15,9 @@ public class ShooterScript : MonoBehaviour
     private float bulletUpgradeTime = 0f;
     private bool bulletUpgraded = false;
     private int currentBulletType = 0;
+    public AudioSource shootingSound;
+    public AudioSource blasterSound;
+    public AudioSource powerUpSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +42,16 @@ public class ShooterScript : MonoBehaviour
                 GameObject spawnedObject = Instantiate(bullet[currentBulletType], transform.position, Quaternion.identity);
                 Vector3 direction = (hit.point - transform.position).normalized;
                 StartCoroutine(MoveObject(spawnedObject, direction));
+                
+                if (bulletUpgraded && blasterSound != null)
+                {
+                    blasterSound.Play();
+                }
+                else if (shootingSound != null)
+                {
+                    shootingSound.Play();
+                }
+                
             } else
             {
                 //GameObject spawnedObject = Instantiate(bullet, transform.position, Quaternion.identity);
@@ -99,6 +112,11 @@ public class ShooterScript : MonoBehaviour
 
         bulletUpgraded = true;
         currentBulletType = blaster;
+
+        if (powerUpSound != null)
+        {
+            powerUpSound.Play();
+        }
 
     }
 
