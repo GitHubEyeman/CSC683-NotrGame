@@ -25,7 +25,11 @@ public class Score : MonoBehaviour
 
     void Update()
     {
-        score += baseScorePerSecond * scoreMultiplier;
+        
+        if (Time.timeScale == 1)
+        {
+            score += baseScorePerSecond * scoreMultiplier;
+        }
         UpdateUI();
     }
 
