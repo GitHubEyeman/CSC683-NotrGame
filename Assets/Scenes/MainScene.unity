@@ -5488,6 +5488,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
+      propertyPath: leanSmooth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5375338184016971683, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
+      propertyPath: maxLeanAngle
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6724749691039555040, guid: d8742a92241e15644b8f457fa18e23c9, type: 3}
       propertyPath: healthBar
       value: 
