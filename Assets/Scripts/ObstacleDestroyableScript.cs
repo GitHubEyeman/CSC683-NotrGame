@@ -20,6 +20,7 @@ public class ObstacleDestroyableScript : MonoBehaviour
         {
             SpawnParticle(particlePrefab, transform.position);
             Destroy(gameObject);
+            AudioManager.Instance.Play("EnemyDeath");
         }
     }
 
