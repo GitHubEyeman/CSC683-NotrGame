@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a423edefcbe97d6418f97418fd5a5453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShooterScript
-  bullet: {fileID: 1885484725507614933, guid: 32cf0799250570e4885b22669ae5e0fe, type: 3}
+  bullet:
+  - {fileID: 1885484725507614933, guid: 32cf0799250570e4885b22669ae5e0fe, type: 3}
+  - {fileID: 0}
+  particlePrefab: {fileID: 0}
   maxDistance: 50
   speed: 15
   spawnInterval: 0.3

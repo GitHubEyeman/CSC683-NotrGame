@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectiblePickUp
   healAmount: 20
+  particlePrefab: {fileID: 1517605067695438517, guid: 9a74709fbc3148a4c9d931aae413def8, type: 3}
 --- !u!1001 &3430433625355877307
 PrefabInstance:
   m_ObjectHideFlags: 0

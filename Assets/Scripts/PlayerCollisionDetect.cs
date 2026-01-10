@@ -32,7 +32,7 @@ public class PlayerCollisionDetect : MonoBehaviour
 
         Debug.Log("Trigger entered with: " + other.gameObject.name + " | Tag: " + other.tag);
         
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle") || other.CompareTag("ObstacleDestroyable"))
         {
             Debug.Log("HIT OBSTACLE! Applying damage: " + obstacleDamage);
             TakeDamage(obstacleDamage);

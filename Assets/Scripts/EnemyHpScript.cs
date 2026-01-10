@@ -14,6 +14,8 @@ public class EnemyHpScript : MonoBehaviour
         {
             
             GameObject particle = SpawnParticle(particleDeadPrefab, transform.position);
+            Score score = FindFirstObjectByType<Score>();
+            score.score += 1000;
 
             Destroy(particle, 2f);
             Destroy(gameObject);
