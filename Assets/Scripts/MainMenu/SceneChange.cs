@@ -27,4 +27,27 @@ public class SceneChange : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
+
+     public void DifficultySelect()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("DifficultyMenu");
+    }
+
+    public void GoToEasy()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Easy");
+    }
+
+    public void GoToMedium()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Medium");
+    }
+    public void GoToHard()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Hard");
+    }
 }

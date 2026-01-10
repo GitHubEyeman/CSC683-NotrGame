@@ -5,33 +5,29 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
 
+    [Header("Movement Settings")]
+    public float moveSpeed = 15f;
+    public float maxXPosition = 10f; // Maximum allowed X position (right boundary)
+    public float minXPosition = -10f; // Minimum allowed X position (left boundary)
+
     [Header("Jump Settings")]
     public float jumpForce = 30f;
     public float gravityScale = 5f;
     public float fallingGravityScale = 10f;
 
-    [Header("Lane Settings")]
-    public int numberOfLanes = 5;
-    public float laneWidth = 3f;
-    public float laneChangeSpeed = 15f;
-
-    private int currentLane = 2; // middle lane
-    private float targetXPosition;
-    private bool isChangingLane;
-
     private bool isGrounded;
+    private float horizontalInput;
 
     void Start()
     {
         rb.freezeRotation = true;
-        targetXPosition = CalculateLanePosition(currentLane);
     }
 
     void Update()
     {
         HandleJump();
-        HandleLaneInput();
-        MoveToLane();
+        HandleHorizontalInput();
+        ApplyMovement();
     }
 
     void FixedUpdate()
@@ -39,8 +35,36 @@ public class PlayerMovementScript : MonoBehaviour
         ApplyCustomGravity();
     }
 
-    // -------------------- JUMP --------------------
+    // -------------------- HORIZONTAL MOVEMENT --------------------
+    void HandleHorizontalInput()
+    {
+        // Get horizontal input from both arrow keys and A/D keys
+        horizontalInput = 0f;
+        
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            horizontalInput = -1f;
+        
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            horizontalInput = 1f;
+    }
 
+    void ApplyMovement()
+    {
+        if (horizontalInput != 0f)
+        {
+            // Calculate new position
+            Vector3 newPosition = transform.position + 
+                                  new Vector3(horizontalInput * moveSpeed * Time.deltaTime, 0f, 0f);
+            
+            // Clamp the X position to stay within boundaries
+            newPosition.x = Mathf.Clamp(newPosition.x, minXPosition, maxXPosition);
+            
+            // Apply the movement
+            transform.position = newPosition;
+        }
+    }
+
+    // -------------------- JUMP --------------------
     void HandleJump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -57,7 +81,6 @@ public class PlayerMovementScript : MonoBehaviour
     }
 
     // -------------------- GRAVITY --------------------
-
     void ApplyCustomGravity()
     {
         float gravityMultiplier =
@@ -66,49 +89,7 @@ public class PlayerMovementScript : MonoBehaviour
         rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
     }
 
-    // -------------------- LANES --------------------
-
-    void HandleLaneInput()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            ChangeLane(-1);
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            ChangeLane(1);
-    }
-
-    void ChangeLane(int direction)
-    {
-        int newLane = currentLane + direction;
-
-        if (newLane >= 0 && newLane < numberOfLanes)
-        {
-            currentLane = newLane;
-            targetXPosition = CalculateLanePosition(currentLane);
-            isChangingLane = true;
-        }
-    }
-
-    void MoveToLane()
-    {
-        if (!isChangingLane) return;
-
-        Vector3 pos = transform.position;
-        float newX = Mathf.MoveTowards(pos.x, targetXPosition, laneChangeSpeed * Time.deltaTime);
-        transform.position = new Vector3(newX, pos.y, pos.z);
-
-        if (Mathf.Abs(newX - targetXPosition) < 0.01f)
-            isChangingLane = false;
-    }
-
-    float CalculateLanePosition(int laneIndex)
-    {
-        float leftMost = -((numberOfLanes - 1) * laneWidth) / 2f;
-        return leftMost + laneIndex * laneWidth;
-    }
-
     // -------------------- GROUND CHECK --------------------
-
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -123,5 +104,16 @@ public class PlayerMovementScript : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    // Optional: Draw boundaries in the editor for visualization
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 leftBoundary = new Vector3(minXPosition, transform.position.y, transform.position.z);
+        Vector3 rightBoundary = new Vector3(maxXPosition, transform.position.y, transform.position.z);
+        
+        Gizmos.DrawLine(leftBoundary + Vector3.up * 2f, leftBoundary + Vector3.down * 2f);
+        Gizmos.DrawLine(rightBoundary + Vector3.up * 2f, rightBoundary + Vector3.down * 2f);
     }
 }
