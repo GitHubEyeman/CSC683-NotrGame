@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - PlayerBullet
   - ObstacleDestroyable
+  - Audio
   layers:
   - Default
   - TransparentFX
