@@ -690,7 +690,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1277659200}
         m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
-        m_MethodName: GoToEasy
+        m_MethodName: GoToMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
