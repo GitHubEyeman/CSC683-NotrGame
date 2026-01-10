@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2379775832773086978}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.020680677, y: 0, z: 0, w: 0.99978614}
-  m_LocalPosition: {x: 0, y: 2.8, z: 4.42}
+  m_LocalRotation: {x: -0.05155162, y: 0, z: 0, w: 0.9986704}
+  m_LocalPosition: {x: 0, y: 2.68, z: 4.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 226841608328738612}
-  m_LocalEulerAnglesHint: {x: 2.37, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.91, y: 0, z: 0}
 --- !u!20 &2499934018954149941
 Camera:
   m_ObjectHideFlags: 0
@@ -387,6 +387,7 @@ MonoBehaviour:
   maxLeanAngle: 5
   leanSmooth: 5
   gravityForce: 80
+  jumpSound: {fileID: 0}
 --- !u!54 &1251106984821529060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -437,6 +438,8 @@ MonoBehaviour:
   playerRenderer: {fileID: 5411506947816751573}
   originalMaterial: {fileID: 0}
   damageMaterial: {fileID: 2100000, guid: 4b1a94d32b9f0b44291fcb2ea3d5ce66, type: 2}
+  destroy: {fileID: 0}
+  takeHit: {fileID: 0}
 --- !u!114 &2351846469667832110
 MonoBehaviour:
   m_ObjectHideFlags: 0

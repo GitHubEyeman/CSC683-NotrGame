@@ -47,12 +47,12 @@ public void GoToMainScene()
 
     public void GoToMedium()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("Medium");
+        //Time.timeScale = 1;
+        SceneManager.LoadScene("MainScene Medium");
     }
     public void GoToHard()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Hard");
+        SceneManager.LoadScene("MainScene Hardcore");
     }
 }

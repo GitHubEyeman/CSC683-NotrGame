@@ -258,7 +258,7 @@ MonoBehaviour:
   - {fileID: 5323712619701354747, guid: 33f0b14442eed4747824adfb97a98fb8, type: 3}
   numberOfLanes: 5
   laneWidth: 4
-  spawnInterval: 2
+  spawnInterval: 0.5
   spawnZ: 200
   spawnY: 0.5
   minDistance: 5
@@ -3099,7 +3099,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 624354536257887291, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
   m_PrefabInstance: {fileID: 1811757298}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1708473189}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e567dd0ff50a436489bb9440f9322029, type: 3}
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   - {fileID: 6236761622190197892, guid: 7958c1b7bc93b084dafa320f7547e281, type: 3}
   spawnRadius: 10
   minSpawnDistance: 2
-  spawnInterval: 5
+  spawnInterval: 3
   maxSpawnHeight: 15
   spawnerTransform: {fileID: 1307519615}
 --- !u!4 &1307519615
@@ -5155,6 +5155,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1708473189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8559242789434107287, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+  m_PrefabInstance: {fileID: 1811757298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1708473190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708473189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc2e729947b12f43978ea769cd1da43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoubleScorePickup
+  multiplier: 2
+  duration: 5
 --- !u!1001 &1725576776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5359,6 +5378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP UI
       objectReference: {fileID: 0}
+    - target: {fileID: 1922713753122401077, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: maxHealth
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4280529778368248348, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5461,7 +5484,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6193476778223175345, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       insertIndex: -1
       addedObject: {fileID: 708675210}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8559242789434107287, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1708473190}
   m_SourcePrefab: {fileID: 100100000, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
 --- !u!4 &1813091312 stripped
 Transform:

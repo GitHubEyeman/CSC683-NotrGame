@@ -14,15 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/Medium.unity
-    guid: 281144bd75865a54fb8f3f5278065d04
-  - enabled: 0
-    path: Assets/Scenes/Hard.unity
-    guid: 2a1a3e60e31d98f4ab0e4282f13b4d7f
   - enabled: 1
-    path: Assets/Scenes/MainScene - EnvUpdate.unity
-    guid: 45d4c71812f016e448c5fcc1ea374302
+    path: Assets/Scenes/MainScene Medium.unity
+    guid: d20f76f515727c947949c0800c22b8e5
+  - enabled: 1
+    path: Assets/Scenes/MainScene Hardcore.unity
+    guid: 973c6c5b780fd3d4c8feaaf8b9eda892
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

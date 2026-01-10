@@ -258,7 +258,7 @@ MonoBehaviour:
   - {fileID: 5323712619701354747, guid: 33f0b14442eed4747824adfb97a98fb8, type: 3}
   numberOfLanes: 5
   laneWidth: 4
-  spawnInterval: 2
+  spawnInterval: 1
   spawnZ: 200
   spawnY: 0.5
   minDistance: 5
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   - {fileID: 6236761622190197892, guid: 7958c1b7bc93b084dafa320f7547e281, type: 3}
   spawnRadius: 10
   minSpawnDistance: 2
-  spawnInterval: 5
+  spawnInterval: 4
   maxSpawnHeight: 15
   spawnerTransform: {fileID: 1307519615}
 --- !u!4 &1307519615
@@ -5358,6 +5358,10 @@ PrefabInstance:
     - target: {fileID: 846405472230499889, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_Name
       value: HP UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922713753122401077, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
+      propertyPath: maxHealth
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4280529778368248348, guid: 8297db4c5101e534ea96ea56348d6674, type: 3}
       propertyPath: m_AnchorMax.x
