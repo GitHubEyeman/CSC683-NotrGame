@@ -28,11 +28,11 @@ public class CrosshairController : MonoBehaviour
         // Toggle visibility when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleCursorAndCrosshair();
+            //ToggleCursorAndCrosshair();
         }
     }
 
-    void ToggleCursorAndCrosshair()
+    public void ToggleCursorAndCrosshair()
     {
         isCrosshairActive = !isCrosshairActive;
 

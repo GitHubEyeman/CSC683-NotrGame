@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;  // Array of enemy prefabs to choose from
     public float spawnRadius = 10f;    // Radius around the spawner where enemies will spawn
