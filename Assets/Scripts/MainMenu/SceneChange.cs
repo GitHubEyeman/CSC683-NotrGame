@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
+
 {
-    public void GoToMainScene()
+    public void OpenSettings()
+    {
+        
+}
+public void GoToMainScene()
     {
        SceneManager.LoadScene("MainScene");
     }
