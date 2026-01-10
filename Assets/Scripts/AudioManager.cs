@@ -1,22 +1,26 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     [System.Serializable]
     public class Sound
     {
-        public string name;          // Name used to play the sound
-        public AudioSource source;   // AudioSource assigned in Inspector
+        public string name;
+        public AudioClip clip;
+
+        [HideInInspector]
+        public AudioSource source;
     }
 
     public static AudioManager Instance;
 
     [Header("Sounds")]
-    public Sound[] sounds; // Assign AudioSources here
+    public Sound[] sounds;
 
     private void Awake()
     {
-        // Singleton pattern (optional but recommended)
+        // Singleton protection
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -25,51 +29,86 @@ public class AudioManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        InitializeAudioSources();
     }
 
-    /// <summary>
-    /// Play a sound by name
-    /// </summary>
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        InitializeAudioSources();
+    }
+
+    private void InitializeAudioSources()
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.clip == null)
+            {
+                Debug.LogWarning($"AudioManager: Clip missing for sound '{s.name}'");
+                continue;
+            }
+
+            if (s.source == null)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+            }
+
+            s.source.clip = s.clip;
+            s.source.playOnAwake = false;
+            s.source.loop = false;
+        }
+    }
+
     public void Play(string soundName)
     {
-        foreach (Sound s in sounds)
-        {
-            if (s.name == soundName)
-            {
-                s.source.Play();
-                return;
-            }
-        }
+        Sound s = GetSound(soundName);
+        if (s == null || s.source == null)
+            return;
 
-        Debug.LogWarning("Sound not found: " + soundName);
+        s.source.Stop(); // prevents overlapping bug
+        s.source.Play();
     }
 
-    /// <summary>
-    /// Stop a sound by name
-    /// </summary>
     public void Stop(string soundName)
     {
-        foreach (Sound s in sounds)
-        {
-            if (s.name == soundName)
-            {
-                s.source.Stop();
-                return;
-            }
-        }
+        Sound s = GetSound(soundName);
+        if (s == null || s.source == null)
+            return;
+
+        s.source.Stop();
     }
 
-    /// <summary>
-    /// Play a sound by array index
-    /// </summary>
     public void Play(int index)
     {
         if (index < 0 || index >= sounds.Length)
-        {
-            Debug.LogWarning("Sound index out of range: " + index);
             return;
+
+        if (sounds[index].source == null)
+            return;
+
+        sounds[index].source.Stop();
+        sounds[index].source.Play();
+    }
+
+    private Sound GetSound(string name)
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.name == name)
+                return s;
         }
 
-        sounds[index].source.Play();
+        Debug.LogWarning("Sound not found: " + name);
+        return null;
     }
 }

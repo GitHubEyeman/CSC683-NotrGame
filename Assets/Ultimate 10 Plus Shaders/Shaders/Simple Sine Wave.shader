@@ -54,7 +54,7 @@ Shader "Ultimate 10+ Shaders/Simple Sine Wave_URP"
     {
         Tags
         {
-            "RenderPipeline"="UniversalRenderPipeline"
+            "RenderPipeline"="UniversalPipeline"
             "RenderType"="Opaque"
         }
 

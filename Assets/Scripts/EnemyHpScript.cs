@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class EnemyHpScript : MonoBehaviour
 {
-    
-    public int hp = 3;
+    public int maxHp = 3;
+    public int hp;
     public ParticleSystem particleDeadPrefab;
     //public AudioSource enemyDestroy;
 
+
+    void OnEnable()
+    {
+        hp = maxHp;
+    }
     public void takeDamage(int damage)
     {
         hp -= damage;
 
         if (hp <= 0)
         {
-            
+            Debug.Log("Ded "+gameObject);
             GameObject particle = SpawnParticle(particleDeadPrefab, transform.position);
             Score score = FindFirstObjectByType<Score>();
             score.score += 1000;

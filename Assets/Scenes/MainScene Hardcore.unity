@@ -1831,9 +1831,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: a13e4c8595a0242438549d2bc4b1609e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5f416c533d311e244bc7d4d182700745, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.042
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2699,8 +2699,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   sounds:
   - name: EnemyDeath
+    clip: {fileID: 0}
     source: {fileID: 4253899333469038100}
   - name: PowerUp
+    clip: {fileID: 0}
     source: {fileID: 235906152}
 --- !u!4 &809533314
 Transform:

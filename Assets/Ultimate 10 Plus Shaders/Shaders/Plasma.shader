@@ -13,7 +13,7 @@
 
     SubShader
     {
-        Tags { "RenderPipeline"="UniversalRenderPipeline" "Queue"="Overlay" }
+        Tags { "RenderPipeline"="UniversalPipeline" "Queue"="Overlay" }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite On
         Cull Off
