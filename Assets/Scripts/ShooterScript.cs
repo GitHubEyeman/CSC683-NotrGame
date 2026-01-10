@@ -25,7 +25,7 @@ public class ShooterScript : MonoBehaviour
     {
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (Input.GetMouseButton(0) && timeSinceLastSpawn >= spawnInterval)
+        if (Input.GetMouseButton(0) && timeSinceLastSpawn >= spawnInterval && Time.timeScale == 1)
         {
             timeSinceLastSpawn = 0f;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

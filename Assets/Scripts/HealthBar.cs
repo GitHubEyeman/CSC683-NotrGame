@@ -94,9 +94,9 @@ public class HealthBar : MonoBehaviour
             if (GameOverPanel != null)
             {
                 // Correct usage: call the SetActive method (do not assign to it)
-                GameOverPanel.SetActive(true);
+                //GameOverPanel.SetActive(true);
             }
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
     }
 
@@ -104,5 +104,9 @@ public class HealthBar : MonoBehaviour
     {
         Health += amount;
         Health = Mathf.Clamp(Health, 0f, maxHealth);
+    }
+
+    public float GetHealth() { 
+        return Health;
     }
 }
